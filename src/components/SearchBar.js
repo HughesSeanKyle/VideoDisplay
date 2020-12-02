@@ -10,9 +10,7 @@ import React from 'react';
     onFormSubmit = event => {
         event.preventDefault(); // Prevent submission on enter key down
 
-        // TODO: Make sure to call
-        // callback from parent. 
-            // To tell app user submitted form and want to initiate new search. 
+        this.props.onFormSubmit(this.state.term); // 1 
     };
 
      render() {
@@ -35,3 +33,7 @@ import React from 'react';
  };
 
  export default SearchBar;
+
+ /*
+ Parent will be told what the current search term is. 
+ */
