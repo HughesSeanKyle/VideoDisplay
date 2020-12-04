@@ -1,11 +1,12 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import VideoList from './VideoList';
+import VideoDetail from './VideoDetail';
 import youtube from '../apis/youtube';
 
 class App extends React.Component {
     state = { videos: [], selectedVideo: null };
-    // Func will be called when search term submitted
+    // Func will be called when search term submitted      
     onTermSubmit = async term => {
         //2
         const response = await youtube.get('/search', {
@@ -19,13 +20,14 @@ class App extends React.Component {
     
     // Callback for when video selected //3
     onVideoSelect = (video) => {
-        console.log('From the App!', video);
+        this.setState({ selectedVideo: video })
     };
 
-    render() {
+    render() { //4
         return (
             <div className="ui container">
                 <SearchBar onFormSubmit={this.onTermSubmit} />
+                <VideoDetail video={this.state.selectedVideo} />
                 <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.videos} />
             </div>
     );//1
@@ -35,7 +37,14 @@ class App extends React.Component {
 export default App;
 
 /*
+error at V131 @4:14 = cannot read prop 'snippet' of null. Error comes from state being initialized as null. 
+
 note 1 - onFormSumit can be called anything
 note 2 - is now a preconfigured instance of axios
 note 3 - onVideoSelect={this.onVideoSelect} => propName = {this.callback}
+       - this.setState({ selectedVideo: video }) - The video received from videoItem when       clicked on
+note 4 - In videoList we are sending an array of videos. Hence, prop name videos(plural)
+       - In VideoDetail we are passing down a single video. Hence, prop name video(singular)
+
+
 */
