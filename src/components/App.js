@@ -2,32 +2,21 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
-import youtube from '../apis/youtube';
+import useVideos from '../hooks/useVideos';
 
 const App = () => {
     
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const [videos, search] = useVideos('buildings'); // Get back list of vids and method to update vids
 
-    setSelectedVideo(response.data.items[0]);
-    
-     // Func will be called when search term submitted      
-     const onTermSubmit = async term => {
-        //2
-        const response = await youtube.get('/search', {
-            params: {
-                q: term
-            }
-        });
-
-        setVideos(response.data.items);
-        
-
-    };
+    useEffect(() => {
+        setSelectedVideo(videos[0]);
+    }, [videos]);
 
 
     return (
         <div className="ui container">
-            <SearchBar onFormSubmit={onTermSubmit} />
+            <SearchBar onFormSubmit={search} />
             <div className="ui grid">
                 <div className="ui row">
                     <div className="eleven wide column">

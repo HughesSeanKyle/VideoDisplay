@@ -6,7 +6,7 @@ const useVideos = (defaultSearchTerm) => {
 
     useEffect(() => {               
         search(defaultSearchTerm)
-    }, []);
+    }, [defaultSearchTerm]);
 
     // Func will be called when search term submitted      
     const search = async term => {
