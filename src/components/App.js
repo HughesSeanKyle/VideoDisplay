@@ -5,13 +5,11 @@ import VideoDetail from './VideoDetail';
 import youtube from '../apis/youtube';
 
 const App = () => {
-    const [videos, setVideos] = useState([]);
+    
     const [selectedVideo, setSelectedVideo] = useState(null);
 
-    useEffect(() => {               //6
-        onTermSubmit('buildings')
-    }, []);
-
+    setSelectedVideo(response.data.items[0]);
+    
      // Func will be called when search term submitted      
      const onTermSubmit = async term => {
         //2
@@ -22,7 +20,7 @@ const App = () => {
         });
 
         setVideos(response.data.items);
-        setSelectedVideo(response.data.items[0]);
+        
 
     };
 
